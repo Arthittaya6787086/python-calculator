@@ -3,24 +3,69 @@ class Calculator:
         return a + b
 
     def subtract(self, a, b):
-        return b - a
+        return a - b
 
     def multiply(self, a, b):
+        sub = True
+        if (a < 0 and b > 0) or (a > 0 and b < 0):
+            sub = False
+
+        # a, b = abs(a), abs(b)
+        if a < 0:
+            a = 0 - a
+        if b < 0:
+            b = 0 - b
+
         result = 0
-        for i in range(b+1):
+        for i in range(b):
             result = self.add(result, a)
+
+        if (sub == False):
+            return -result
         return result
 
     def divide(self, a, b):
+        if (b == 0):
+            raise ValueError("Cannot divide by zero")
+
+        sub  = True
+        if (a < 0 and b > 0) or (a > 0 and b < 0):
+            sub = False
+
+        # a, b = abs(a), abs(b)
+        if a < 0:
+            a = 0 - a
+        if b < 0:
+            b = 0 - b
+
         result = 0
-        while a > b:
+        while a >= b:
             a = self.subtract(a, b)
             result += 1
+
+        if (sub == False):
+            return -result
         return result
     
     def modulo(self, a, b):
-        while a <= b:
-            a = a-b
+        if (b == 0):
+            raise ValueError("Cannot modulo by zero")
+
+        sub = True
+        if (a < 0 and b > 0) or (a < 0 and b < 0):
+            sub = False
+
+        # a, b = abs(a), abs(b)
+        if a < 0:
+            a = 0 - a
+        if b < 0:
+            b = 0 - b
+            
+        while a >= b:
+            a = self.subtract(a, b)
+        
+        if (sub == False):
+            return -a
         return a
 
 # Example usage:
